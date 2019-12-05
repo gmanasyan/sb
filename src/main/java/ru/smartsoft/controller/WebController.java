@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.smartsoft.dto.PurchaseTo;
 import ru.smartsoft.model.Purchase;
@@ -45,6 +46,18 @@ public class WebController {
 
   private Double toInt(Integer cents) {
     return Double.valueOf(cents)/100;
+  }
+
+  @GetMapping("/add")
+  public String addItem(Model model) {
+    System.out.println("INFO: add");
+    return "itemForm";
+  }
+
+  @PostMapping("/")
+  public String createItem(Model model) {
+    System.out.println("INFO: create");
+    return greeting(model);
   }
 
 }

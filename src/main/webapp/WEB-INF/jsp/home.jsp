@@ -48,8 +48,9 @@
             </tr>
         </c:forEach>
     </table>
+    </button>
+    <a href="add" class="btn btn-primary">Добавить новую покупку</a>
 </div>
-
 
 
 <script type="text/javascript" src="webjars/jquery/3.4.1/jquery.min.js"></script>

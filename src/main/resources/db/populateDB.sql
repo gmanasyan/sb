@@ -5,9 +5,9 @@ DELETE FROM purchases;
 ALTER SEQUENCE global_seq RESTART WITH 100000;
 
 INSERT INTO users (name, lastname, age, email, password) VALUES
-('Иван', 'Иванов', 32, 'ivan@gmail.com', '{noop}123'),
-('Алексей', 'Алексеев', 21, 'al@gmail.com', '{noop}123'),
-('Константин', 'Константинов', 45, 'konst@gmail.com', '{noop}123');
+('Иван', 'Иванов', 32, 'ivan@gmail.com', '{noop}password'),
+('Алексей', 'Алексеев', 21, 'alex@gmail.com', '{noop}password'),
+('Константин', 'Константинов', 45, 'konst@gmail.com', '{noop}password');
 
 INSERT INTO items (name, cost) VALUES
 ('Телевизор',  1565020),
