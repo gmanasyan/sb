@@ -2,12 +2,19 @@ package ru.smartsoft.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name = "items")
+@XmlRootElement(name = "item")
+@XmlAccessorType(XmlAccessType.PROPERTY)
 public class Item extends AbstractBaseEntity {
 
   private String name;
+
   private Integer cost;
 
   public Item() {
@@ -33,5 +40,14 @@ public class Item extends AbstractBaseEntity {
 
   public void setCost(Integer cost) {
     this.cost = cost;
+  }
+
+  @Override
+  public String toString() {
+    return "Item{" +
+        "name='" + name + '\'' +
+        ", cost=" + cost +
+        ", id=" + id +
+        '}';
   }
 }

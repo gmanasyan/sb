@@ -39,6 +39,10 @@ public class Purchase extends AbstractBaseEntity {
   public Purchase() {
   }
 
+  public Purchase(User user, Item item, Integer count, Date date) {
+    this(null, user, item, count, date);
+  }
+
   public Purchase(Integer id, User user, Item item, Integer count, Date date) {
     super(id);
     this.user = user;

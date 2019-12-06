@@ -61,6 +61,27 @@
       <version>3.4.1</version>
     </dependency>
 
+    <!-- JAXB -->
+    <dependency>
+      <groupId>javax.xml.bind</groupId>
+      <artifactId>jaxb-api</artifactId>
+      <version>2.3.0-b170201.1204</version>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.activation</groupId>
+      <artifactId>activation</artifactId>
+      <version>1.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.glassfish.jaxb</groupId>
+      <artifactId>jaxb-runtime</artifactId>
+      <version>2.3.0-b170127.1453</version>
+    </dependency>
+
+
+
     <!-- Security -->
 <!--    <dependency>-->
 <!--      <groupId>org.springframework.boot</groupId>-->
@@ -74,6 +95,60 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>11</source>
+          <target>11</target>
+        </configuration>
+      </plugin>
+
+      <!-- Generate XSD -->
+<!--      <plugin>-->
+<!--        <groupId>org.codehaus.mojo</groupId>-->
+<!--        <artifactId>jaxb2-maven-plugin</artifactId>-->
+<!--        <version>2.3</version>-->
+<!--        <executions>-->
+<!--          <execution>-->
+<!--            <id>schemagen</id>-->
+<!--            <goals>-->
+<!--              <goal>schemagen</goal>-->
+<!--            </goals>-->
+<!--          </execution>-->
+<!--        </executions>-->
+<!--        <configuration>-->
+<!--          <sources>-->
+<!--            <source>src/main/java/dto/</source>-->
+<!--          </sources>-->
+<!--          <outputDirectory>src/main/resources/xsd</outputDirectory>-->
+<!--          <clearOutputDir>false</clearOutputDir>-->
+<!--          <transformSchemas>-->
+<!--            <transformSchema>-->
+<!--              <uri>http://smartsoft.ru/sb</uri>-->
+<!--              <toPrefix>item</toPrefix>-->
+<!--              <toFile>item-gen.xsd</toFile>-->
+<!--            </transformSchema>-->
+<!--          </transformSchemas>-->
+<!--        </configuration>-->
+<!--      </plugin>-->
+
+      <!--      <plugin>-->
+<!--        <groupId>org.codehaus.mojo</groupId>-->
+<!--        <artifactId>jaxb2-maven-plugin</artifactId>-->
+<!--        <executions>-->
+<!--          <execution>-->
+<!--            <id>schemagen</id>-->
+<!--            <goals>-->
+<!--              <goal>schemagen</goal>-->
+<!--            </goals>-->
+<!--          </execution>-->
+<!--        </executions>-->
+<!--        <configuration>-->
+<!--        <xsdPathWithinArtifact>generated/xsds</xsdPathWithinArtifact>-->
+<!--        </configuration>-->
+<!--      </plugin>-->
+
     </plugins>
   </build>
 
