@@ -19,7 +19,6 @@
     <br/>
     <br/>
     <form method="post" id="addItem">
-
         <dl>
             <dt>Название покупки</dt>
             <dd>

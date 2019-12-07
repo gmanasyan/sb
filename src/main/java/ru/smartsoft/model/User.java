@@ -17,23 +17,14 @@ public class User extends AbstractBaseEntity {
   @Column(name = "age", nullable = false)
   private Integer age;
 
-  @Column(name = "email", nullable = false)
-  private String email;
-
-  @Column(name = "password", nullable = false)
-  private String password;
-
   public User() {
   }
 
-  public User(Integer id, String name, String lastName, Integer age, String email,
-      String password) {
+  public User(Integer id, String name, String lastName, Integer age) {
     super(id);
     this.name = name;
     this.lastName = lastName;
     this.age = age;
-    this.email = email;
-    this.password = password;
   }
 
   public String getName() {
@@ -60,19 +51,4 @@ public class User extends AbstractBaseEntity {
     this.age = age;
   }
 
-  public String getEmail() {
-    return email;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
-  }
 }

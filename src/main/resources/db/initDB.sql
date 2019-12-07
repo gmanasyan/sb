@@ -12,8 +12,8 @@ CREATE TABLE users
     name       VARCHAR                           NOT NULL,
     lastname   VARCHAR                           NOT NULL,
     age        INTEGER                           NOT NULL,
-    email      VARCHAR                           NOT NULL,
-    password   VARCHAR                           NOT NULL
+--     email      VARCHAR                           NOT NULL,
+--     password   VARCHAR                           NOT NULL
 );
 
 CREATE UNIQUE INDEX users_unique_email_idx

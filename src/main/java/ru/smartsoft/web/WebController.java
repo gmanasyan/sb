@@ -45,14 +45,20 @@ public class WebController {
   UserRepo userRepo;
 
   @GetMapping("/")
-  public String greeting(Model model) {
-    System.out.println("INFO: sb");
+  public String home(Model model) {
+    System.out.println("INFO: home");
+    return "home";
+  }
+
+  @GetMapping("/purchases")
+  public String purchases(Model model) {
+    System.out.println("INFO: purchase");
     List result = new ArrayList<PurchaseTo>();
     result = purchaseRepo.getAll().stream()
         .map(p -> toDto(p))
         .collect(Collectors.toList());
     model.addAttribute("purchases", result);
-    return "home";
+    return "purchases";
   }
 
   private PurchaseTo toDto(Purchase pr) {
@@ -115,7 +121,7 @@ public class WebController {
       model.addAttribute("errorMessage", e.getCause().getMessage());
       return "error";
     }
-    return greeting(model);
+    return purchases(model);
   }
 
   private void savePurchase(PurchaseRequestTo purchaseRequestTo) {

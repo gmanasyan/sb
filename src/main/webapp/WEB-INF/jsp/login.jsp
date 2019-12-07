@@ -14,14 +14,21 @@
 <body>
 
 <div class="jumbotron pt-4">
-    <h2>Добро пожаловать</h2>
-
+    <h2>Вход в трекер продаж</h2>
     <br/>
     <br/>
-    <a href="purchases" class="btn btn-primary">Трекер покупок</a>
+    <form action="/login" method="post">
+        <dl>
+            <dt>Имя пользователя:</dt>
+            <dd><input type="text" size=40 name="username" required></dd>
+        </dl>
+        <dl>
+            <dt>Пароль:</dt>
+            <dd><input type="password" name="password" required></dd>
+        </dl>
+        <input type="submit" value="Войти"/>
+    </form>
 </div>
-
-
 <script type="text/javascript" src="webjars/jquery/3.4.1/jquery.min.js"></script>
 <script src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
