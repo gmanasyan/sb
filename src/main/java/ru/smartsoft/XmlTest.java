@@ -9,8 +9,8 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import org.xml.sax.SAXException;
-import ru.smartsoft.dto.PurchaseRequestTo;
 import ru.smartsoft.model.Item;
+import ru.smartsoft.model.sbxsd.SrvCreatePurchaseRq;
 
 public class XmlTest {
 
@@ -40,17 +40,22 @@ public class XmlTest {
 
   private static void validateXML() {
 
-    String xmlString = "<purchaseRequest>" +
-        "    <itemName>Tv</itemName>" +
+    String xmlString = "<SrvCreatePurchaseRq>" +
+        "    <name>Ivan</name>" +
+        "    <lastName>Ivanov</lastName>" +
+        "    <age>33</age>" +
+        "    <purchase_item>Tv</purchase_item>" +
         "    <count>1</count>" +
-        "</purchaseRequest>";
+        "    <amount>3</amount>" +
+        "    <purchaseDate>2019-12-08T12:00:00</purchaseDate>" +
+        "</SrvCreatePurchaseRq>";
 
-    String xsdFile = "src/main/resources/xsd/purchase_request.xsd";
+    String xsdFile = "src/main/resources/xsd/sb_scheme.xsd";
 
     JAXBContext jaxbContext;
     try
     {
-      jaxbContext = JAXBContext.newInstance(PurchaseRequestTo.class);
+      jaxbContext = JAXBContext.newInstance(SrvCreatePurchaseRq.class);
       Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 
       //Setup schema validator
@@ -59,13 +64,24 @@ public class XmlTest {
       jaxbUnmarshaller.setSchema(itemSchema);
 
       //Unmarshal xml file
-      PurchaseRequestTo item = (PurchaseRequestTo) jaxbUnmarshaller.unmarshal(new StringReader(xmlString));
+      SrvCreatePurchaseRq request = (SrvCreatePurchaseRq) jaxbUnmarshaller
+          .unmarshal(new StringReader(xmlString));
 
-      System.out.println(item);
+      System.out.println(request + "\n" +
+          request.getName() + "\n" +
+          request.getLastName() + "\n" +
+          request.getAge() + "\n" +
+          request.getPurchaseItem() + "\n" +
+          request.getCount() + "\n" +
+          request.getAmount()+ "\n" +
+          request.getPurchaseDate() + "\n"
+      );
+
     }
     catch (JAXBException | SAXException e)
     {
       e.printStackTrace();
+      System.out.println("JAXB error" + e.getCause().getMessage());
     }
 
 

@@ -6,8 +6,8 @@
 
     <title>Ошибка</title>
 
-    <link rel="stylesheet" href="resources/css/style.css">
-    <link href="webjars/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/resources/css/style.css">
+    <link href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
 
 <head>
 </head>
@@ -18,12 +18,11 @@
 
     <br/>
     <br/>
-    {$errorMessage}
-
+    ${errorMessage}
 
 </div>
 
-<script type="text/javascript" src="webjars/jquery/3.4.1/jquery.min.js"></script>
-<script src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>

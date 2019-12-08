@@ -1,21 +1,21 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <title>Мои Покупки</title>
+    <title>Покупки</title>
 
-    <link rel="stylesheet" href="resources/css/style.css">
-    <link href="webjars/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/resources/css/style.css">
+    <link href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
 
 <head>
 </head>
 <body>
 
 <div class="jumbotron pt-4">
-    <h2>Менеджер покупок</h2>
-    <a href="logout">Выйти</a>
+    <h2>Трекер покупок</h2>
 
     <br/>
     <br/>
@@ -25,11 +25,13 @@
             <th>#</th>
             <th>Дата</th>
             <th>Товар</th>
-            <th>Стоимость</th>
             <th>Количество</th>
+            <th>Стоимость</th>
             <th>Имя</th>
             <th>Фамилия</th>
             <th>Возраст</th>
+            <th></th>
+            <th></th>
         </tr>
         </thead>
         <c:forEach items="${purchases}" var="purchase">
@@ -37,24 +39,25 @@
             <tr>
                 <td>${purchase.id}</td>
                 <td>${purchase.date}</td>
-                <td>${purchase.name}</td>
-                <td>${purchase.cost}</td>
+                <td>${purchase.item}</td>
                 <td>${purchase.count}</td>
-                <td>${purchase.buyerName}</td>
-                <td>${purchase.buyerSecondName}</td>
+                <td align="right"><fmt:formatNumber type="number" maxFractionDigits="2" minFractionDigits="2"
+                       groupingUsed = "false" value="${purchase.amount/100}"/></td>
+                <td>${purchase.name}</td>
+                <td>${purchase.lastName}</td>
                 <td>${purchase.age}</td>
 
-                <td><a href="purchases?action=update&id=${purchase.id}">Update</a></td>
-                <td><a href="purchases?action=delete&id=${purchase.id}">Delete</a></td>
+                <td><button type="button" onclick="updateRow(${purchase.id})">Изменить</button></td>
+                <td><button type="button" onclick="deleteRow(${purchase.id})">Удалить</button></td>
             </tr>
         </c:forEach>
     </table>
     </button>
-    <a href="add" class="btn btn-primary">Добавить новую покупку</a>
+    <a href="/purchases/add" class="btn btn-primary">Добавить новую покупку</a>
 </div>
 
-
-<script type="text/javascript" src="webjars/jquery/3.4.1/jquery.min.js"></script>
-<script src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/resources/js/sb.items.js"></script>
+<script type="text/javascript" src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+<script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>

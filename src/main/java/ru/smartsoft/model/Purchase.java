@@ -13,7 +13,7 @@ import javax.persistence.UniqueConstraint;
 
 @NamedQueries({
 @NamedQuery(name = Purchase.ALL_SORTED,
-    query = "SELECT p FROM Purchase p ORDER BY p.date DESC")
+    query = "SELECT p FROM Purchase p ORDER BY p.id DESC")
     })
 
 @Entity
@@ -33,20 +33,25 @@ public class Purchase extends AbstractBaseEntity {
   @Column(name = "count", nullable = false)
   private Integer count;
 
+  @Column(name = "amount", nullable = false)
+  private Integer amount;
+
   @Column(name = "date", nullable = false)
   private Date date;
 
   public Purchase() {
   }
 
-  public Purchase(User user, Item item, Integer count, Date date) {
-    this(null, user, item, count, date);
+  public Purchase(User user, Item item, Integer count, Integer amount, Date date) {
+    this(null, user, item, count, amount, date);
   }
 
-  public Purchase(Integer id, User user, Item item, Integer count, Date date) {
+  public Purchase(Integer id, User user, Item item, Integer count,
+      Integer amount, Date date) {
     super(id);
     this.user = user;
     this.item = item;
+    this.amount = amount;
     this.count = count;
     this.date = date;
   }
@@ -81,5 +86,13 @@ public class Purchase extends AbstractBaseEntity {
 
   public void setDate(Date date) {
     this.date = date;
+  }
+
+  public Integer getAmount() {
+    return amount;
+  }
+
+  public void setAmount(Integer amount) {
+    this.amount = amount;
   }
 }

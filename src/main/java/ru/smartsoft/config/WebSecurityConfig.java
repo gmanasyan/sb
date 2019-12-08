@@ -22,12 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers("/", "/webjars/**", "/resources/**").permitAll()
         .anyRequest().authenticated()
         .and()
-        .formLogin()
-        .loginPage("/login")
-        .permitAll()
-        .and()
-        .logout()
-        .permitAll();
+        .httpBasic();
   }
 
   @Bean

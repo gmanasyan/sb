@@ -4,26 +4,26 @@ import java.text.DecimalFormat;
 import java.util.Date;
 
 public class PurchaseTo {
-  private static final DecimalFormat df = new DecimalFormat("#.00");
 
   private Integer id;
   private Date date;
-  private String name;
-  private Double cost;
+  private String item;
   private Integer count;
-  private String buyerName;
-  private String buyerSecondName;
+  private Integer amount;
+  private String name;
+  private String lastName;
   private Integer age;
 
-  public PurchaseTo(Integer id, Date date, String name, Double cost, Integer count,
-      String buyerName, String buyerSecondName, Integer age) {
+
+  public PurchaseTo(Integer id, Date date, String item, Integer count, Integer amount,
+      String name, String lastName, Integer age) {
     this.id = id;
     this.date = date;
-    this.name = name;
-    this.cost = cost;
+    this.item = item;
     this.count = count;
-    this.buyerName = buyerName;
-    this.buyerSecondName = buyerSecondName;
+    this.amount = amount;
+    this.name = name;
+    this.lastName = lastName;
     this.age = age;
   }
 
@@ -31,31 +31,63 @@ public class PurchaseTo {
     return id;
   }
 
+  public void setId(Integer id) {
+    this.id = id;
+  }
+
   public Date getDate() {
     return date;
   }
 
-  public String getName() {
-    return name;
+  public void setDate(Date date) {
+    this.date = date;
   }
 
-  public String getCost() {
-    return df.format(cost);
+  public String getItem() {
+    return item;
+  }
+
+  public void setItem(String item) {
+    this.item = item;
   }
 
   public Integer getCount() {
     return count;
   }
 
-  public String getBuyerName() {
-    return buyerName;
+  public void setCount(Integer count) {
+    this.count = count;
   }
 
-  public String getBuyerSecondName() {
-    return buyerSecondName;
+  public Integer getAmount() {
+    return amount;
+  }
+
+  public void setAmount(Integer amount) {
+    this.amount = amount;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getLastName() {
+    return lastName;
+  }
+
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
   }
 
   public Integer getAge() {
     return age;
+  }
+
+  public void setAge(Integer age) {
+    this.age = age;
   }
 }
