@@ -2,6 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <html>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -9,6 +10,7 @@
 
     <link rel="stylesheet" href="/resources/css/style.css">
     <link href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/webjars/datetimepicker/2.5.20/jquery.datetimepicker.css">
 
 <head>
 </head>
@@ -59,7 +61,10 @@
                        groupingUsed = "false" value="${purchase.amount/100}"/>"></dd>
         </dl>
         <dl><dt>Дата покупки:</dt>
-            <dd><input type="text"  name="date" value="${purchase.date}"></dd>
+            <dd><input id="dateSelector" type="text" name="date" value="${fn:substring(purchase.date, 0, 10)}"></dd>
+        </dl>
+        <dl><dt>Время покупки:</dt>
+            <dd><input id="timeSelector" type="text" name="time" value="${fn:substring(purchase.date, 11,16)}"></dd>
         </dl>
     </form>
     <c:if test="${purchase.id != null}">
@@ -73,9 +78,9 @@
 
 </div>
 
-
-<script type="text/javascript" src="/resources/js/sb.items.js"></script>
 <script type="text/javascript" src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript" src="/resources/js/sb.items.js"></script>
 <script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/webjars/datetimepicker/2.5.20/build/jquery.datetimepicker.full.min.js" defer></script>
 </body>
 </html>

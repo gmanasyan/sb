@@ -19,6 +19,10 @@
     <br/>
     <br/>
     <h3>${reportMessage}<h3>
+    <br/>
+    <br/>
+
+    <button onclick="window.history.back()" type="button">Назад</button>
 </div>
 
 

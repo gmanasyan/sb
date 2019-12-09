@@ -1,7 +1,18 @@
 let ajaxUrl = "/purchases/";
 
-$(document).ready(function () {
+$(function () {
+
+  $.datetimepicker.setLocale('ru');
+  $('#dateSelector').datetimepicker({
+    timepicker: false,
+    format: 'Y-m-d'
+  });
+  $('#timeSelector').datetimepicker({
+    datepicker: false,
+    format: 'H:i'
+  });
 });
+
 
 function save(id) {
   //var formjson = $('#addItem').serializeArray();
@@ -15,7 +26,8 @@ function save(id) {
       '<purchase_item>'+$("form#addItem #purchaseItem option:selected").val()+ '</purchase_item>' +
       '<count>'+$("form#addItem input[name ='count']").val()+ '</count>' +
       '<amount>'+ amount + '</amount>' +
-      '<purchaseDate>'+$("form#addItem input[name ='date']").val()+ '</purchaseDate>' +
+      '<purchaseDate>'+$("form#addItem input[name ='date']").val()+'T' +
+      $("form#addItem input[name ='time']").val()+':00' + '</purchaseDate>' +
       '</SrvCreatePurchaseRq>';
 
   console.log(amount);

@@ -51,7 +51,8 @@ public class ReportController {
     Item result = itemRepo.getBestsellerOfMonth();
     model.addAttribute("reportTitle", "Самомый покупаемый товар за последний месяц" );
     model.addAttribute("reportMessage",
-        "Название товара: " + result.getName());
+        result != null ? "Название товара: " + result.getName()
+        : "Нет покупок за указанный переиод");
     return "report";
   }
 
@@ -61,7 +62,8 @@ public class ReportController {
     User result = userRepo.getBestsellerOfHalthYear();
     model.addAttribute("reportTitle", "Человек совершивший больше всего покупок (по стоимости) за полгода" );
     model.addAttribute("reportMessage",
-        "Имя и фамилия покупателя: " + result.getName() + " " +result.getLastName());
+        result != null ? "Имя и фамилия покупателя: " + result.getName() + " " +result.getLastName()
+        : "Нет покупок за указанный переиод");
     return "report";
   }
 
@@ -71,7 +73,8 @@ public class ReportController {
     Item result = itemRepo.getBestsellerOfAge(age);
     model.addAttribute("reportTitle", "Самый покупаемый товар для людей в возрасте " + age );
     model.addAttribute("reportMessage",
-        "Название товара: " + result.getName());
+        result != null ? "Название товара: " + result.getName()
+        : "Нет товара купленного людьми в указанном возрасте");
     return "report";
   }
 

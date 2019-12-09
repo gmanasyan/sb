@@ -20,6 +20,11 @@
     <br/>
     ${errorMessage}
 
+    <br/>
+    <br/>
+
+    <button onclick="window.history.back()" type="button">Назад</button>
+
 </div>
 
 <script type="text/javascript" src="/webjars/jquery/3.4.1/jquery.min.js"></script>

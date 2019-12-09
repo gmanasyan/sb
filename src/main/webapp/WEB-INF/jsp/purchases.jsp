@@ -2,6 +2,8 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
+
 <html>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -17,13 +19,10 @@
 <div class="jumbotron pt-4">
     <h2>Трекер покупок</h2>
     <br/>
-    <a href="/report/week" class="btn">Все покупки за последнюю неделю</a>
-    <br/>
-    <a href="/report/bestseller/month" class="btn">Лучший товар за последнюй месяц</a>
-    <br/>
-    <a href="/report/bestbuyer/halfyear" class="btn">Лучший покупатель за полгода</a>
-    <br/>
-    <a href="/report/bestseller/32" class="btn">Лучшая покупка людей 18 лет</a>
+    <a href="/report/week" class="btn btn-outline-info">Все покупки за последнюю неделю</a>
+    <a href="/report/bestseller/month" class="btn btn-outline-info">Лучший товар за последнюй месяц</a>
+    <a href="/report/bestbuyer/halfyear" class="btn btn-outline-info">Лучший покупатель за полгода</a>
+    <a href="/report/bestseller/18" class="btn btn-outline-info">Лучшая покупка людей 18 лет</a>
     <br/>
     <br/>
     <table class="table table-striped" id="datatable">
@@ -45,7 +44,7 @@
             <jsp:useBean id="purchase" type="ru.smartsoft.dto.PurchaseTo"/>
             <tr>
                 <td>${purchase.id}</td>
-                <td>${purchase.date}</td>
+                <td>${fn:substring(purchase.date, 0, 16)}</td>
                 <td>${purchase.item}</td>
                 <td>${purchase.count}</td>
                 <td align="right"><fmt:formatNumber type="number" maxFractionDigits="2" minFractionDigits="2"
