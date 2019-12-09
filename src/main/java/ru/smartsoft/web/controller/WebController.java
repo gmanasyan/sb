@@ -1,5 +1,7 @@
 package ru.smartsoft.web.controller;
 
+import static ru.smartsoft.web.CommonUtil.toDto;
+
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -70,22 +72,6 @@ public class WebController {
     List<Item> items = itemRepo.findAll();
     model.addAttribute("items", items);
     return "itemForm";
-  }
-
-  private PurchaseTo toDto(Purchase pr) {
-    if (pr != null) {
-      PurchaseTo result = new PurchaseTo(
-          pr.getId(),
-          pr.getDate(),
-          pr.getItem().getName(),
-          pr.getCount(),
-          pr.getAmount(),
-          pr.getUser().getName(),
-          pr.getUser().getLastName(),
-          pr.getUser().getAge());
-      return result;
-    }
-    return null;
   }
 
   @RequestMapping(method = RequestMethod.PUT, value = "/purchases/{id}",

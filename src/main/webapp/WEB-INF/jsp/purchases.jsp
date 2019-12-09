@@ -16,7 +16,14 @@
 
 <div class="jumbotron pt-4">
     <h2>Трекер покупок</h2>
-
+    <br/>
+    <a href="/report/week" class="btn">Все покупки за последнюю неделю</a>
+    <br/>
+    <a href="/report/bestseller/month" class="btn">Лучший товар за последнюй месяц</a>
+    <br/>
+    <a href="/report/bestbuyer/halfyear" class="btn">Лучший покупатель за полгода</a>
+    <br/>
+    <a href="/report/bestseller/32" class="btn">Лучшая покупка людей 18 лет</a>
     <br/>
     <br/>
     <table class="table table-striped" id="datatable">
