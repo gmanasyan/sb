@@ -4,6 +4,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+/**
+ * Сущьность клиента.
+ */
 @Entity
 @Table(name = "users")
 public class User extends AbstractBaseEntity {

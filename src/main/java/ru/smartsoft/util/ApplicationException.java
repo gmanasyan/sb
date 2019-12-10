@@ -1,13 +1,13 @@
 package ru.smartsoft.util;
 
 /**
- * Эксепшен при работе JAXB.
+ * Базовый эксепшен.
  */
-public class JaxbException extends RuntimeException {
+public class ApplicationException extends RuntimeException {
 
   private final String msg;
 
-  public JaxbException(String msg) {
+  public ApplicationException(String msg) {
     super(String.format("msgCode=%s", msg));
     this.msg = msg;
   }
@@ -15,4 +15,5 @@ public class JaxbException extends RuntimeException {
   public String getMsg() {
     return msg;
   }
+
 }

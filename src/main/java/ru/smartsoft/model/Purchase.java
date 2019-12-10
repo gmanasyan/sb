@@ -9,33 +9,48 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
+/**
+ * Сущьность покупки клиента.
+ */
 @NamedQueries({
 @NamedQuery(name = Purchase.ALL_SORTED,
     query = "SELECT p FROM Purchase p ORDER BY p.id DESC")
     })
-
 @Entity
 @Table(name = "purchases")
-
 public class Purchase extends AbstractBaseEntity {
   public static final String ALL_SORTED = "Purchase.getAll";
 
+  /**
+   * Пользователь.
+   */
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "user_id")
   private User user;
 
+  /**
+   * Покупка.
+   */
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "item_id")
   private Item item;
 
+  /**
+   * Количество покупки.
+   */
   @Column(name = "count", nullable = false)
   private Integer count;
 
+  /**
+   * Сумма покупки.
+   */
   @Column(name = "amount", nullable = false)
   private Integer amount;
 
+  /**
+   * Дата покупки.
+   */
   @Column(name = "date", nullable = false)
   private Date date;
 

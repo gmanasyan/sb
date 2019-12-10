@@ -8,6 +8,9 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.SequenceGenerator;
 import org.springframework.data.domain.Persistable;
 
+/**
+ * Базовый класс для всех сущьностей.
+ */
 @MappedSuperclass
 public abstract class AbstractBaseEntity  {
   public static final int START_SEQ = 100000;

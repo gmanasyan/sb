@@ -1,12 +1,15 @@
 package ru.smartsoft.model.converter;
 
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.StringReader;
 import java.net.URL;
+import java.nio.charset.Charset;
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
@@ -18,7 +21,7 @@ import ru.smartsoft.model.sbxsd.SrvCreatePurchaseRq;
 import ru.smartsoft.util.JaxbException;
 
 /**
- * Конвертер входящих данных
+ * JAXB Конвертер входящих данных.
  */
 public class JaxbConverter {
 
@@ -32,6 +35,9 @@ public class JaxbConverter {
     this.validationScheme = validationScheme;
   }
 
+  /**
+   * Валидирует и преобразует xml строку в транспортный объект.
+   */
   public SrvCreatePurchaseRq getObject(String xml) {
 
     URL fileUrl = getClass().getClassLoader().getResource(validationScheme);
@@ -55,6 +61,29 @@ public class JaxbConverter {
     {
         log.error("JAXB error {}", e.getCause().getMessage());
         throw new JaxbException(e.getCause().getMessage());
+    }
+  }
+
+  /**
+   * Преобразует транспортный объект в xml строку.
+   */
+  public String getXml(Object object) throws JAXBException {
+    if (object == null) {
+      throw new JAXBException("Can't convert null object to XML");
+    }
+    JAXBContext jaxbContext;
+    try
+    {
+      jaxbContext = JAXBContext.newInstance(object.getClass());
+      Marshaller marshaller = jaxbContext.createMarshaller();
+      ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+      marshaller.marshal(object, outputStream);
+      return new String(outputStream.toByteArray(), Charset.forName("UTF-8"));
+    }
+    catch (JAXBException  e)
+    {
+      log.error("JAXB error {}", e.getCause().getMessage());
+      throw new JaxbException(e.getCause().getMessage());
     }
   }
 

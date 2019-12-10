@@ -3,6 +3,9 @@ package ru.smartsoft.model;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+/**
+ * Сущьность товара.
+ */
 @Entity
 @Table(name = "items")
 public class Item extends AbstractBaseEntity {
