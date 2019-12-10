@@ -19,11 +19,12 @@ function save(id) {
 
   var amount = Math.trunc($("form#addItem input[name ='amount']").val() * 100);
 
-  var formxml = '<SrvCreatePurchaseRq>' +
+  var formxml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+      + '<SrvCreatePurchaseRq>' +
       '<name>'+$("form#addItem input[name ='name']").val()+ '</name>' +
       '<lastName>'+$("form#addItem input[name ='lastname']").val()+ '</lastName>' +
       '<age>'+$("form#addItem input[name ='age']").val()+ '</age>' +
-      '<purchase_item>'+$("form#addItem #purchaseItem option:selected").val()+ '</purchase_item>' +
+      '<purchase_item>'+$("form#addItem #purchaseItem option:selected").val()+'</purchase_item>' +
       '<count>'+$("form#addItem input[name ='count']").val()+ '</count>' +
       '<amount>'+ amount + '</amount>' +
       '<purchaseDate>'+$("form#addItem input[name ='date']").val()+'T' +

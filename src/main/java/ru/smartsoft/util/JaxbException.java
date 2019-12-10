@@ -3,16 +3,10 @@ package ru.smartsoft.util;
 /**
  * Эксепшен при работе JAXB.
  */
-public class JaxbException extends RuntimeException {
-
-  private final String msg;
+public class JaxbException extends ApplicationException {
 
   public JaxbException(String msg) {
-    super(String.format("msgCode=%s", msg));
-    this.msg = msg;
+    super(msg);
   }
 
-  public String getMsg() {
-    return msg;
-  }
 }

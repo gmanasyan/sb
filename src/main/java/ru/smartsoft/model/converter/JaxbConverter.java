@@ -1,6 +1,5 @@
 package ru.smartsoft.model.converter;
 
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.StringReader;
@@ -67,9 +66,9 @@ public class JaxbConverter {
   /**
    * Преобразует транспортный объект в xml строку.
    */
-  public String getXml(Object object) throws JAXBException {
+  public String getXml(Object object) {
     if (object == null) {
-      throw new JAXBException("Can't convert null object to XML");
+      throw new JaxbException("Can't convert null object to XML");
     }
     JAXBContext jaxbContext;
     try

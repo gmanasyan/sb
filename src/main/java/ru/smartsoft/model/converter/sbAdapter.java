@@ -70,6 +70,9 @@ public class sbAdapter {
    * Возвращает транспротный объект ответа для покупки.
    */
   public static SrvGetPurchaseRs responsePurchase(Purchase response) {
+    if (response == null) {
+      return new SrvGetPurchaseRs();
+    }
     SrvGetPurchaseRs purchaseRs = new SrvGetPurchaseRs();
     purchaseRs.setPurchase(toPurchaseInfo(response));
     return purchaseRs;
@@ -79,6 +82,9 @@ public class sbAdapter {
    * Возвращает транспротный объект ответа для списка покупок.
    */
   public static SrvGetPurchaseListRs responsePurchaseList(List<Purchase> response) {
+    if (response == null) {
+      return new SrvGetPurchaseListRs();
+    }
     List<PurchaseInfo> result = response.stream()
         .map(p -> toPurchaseInfo(p))
         .collect(Collectors.toList());
