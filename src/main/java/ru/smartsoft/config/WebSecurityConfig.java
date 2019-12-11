@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 /**
  * Класс для авторизации в спринге.
@@ -22,7 +23,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     http
         .csrf().disable()
         .authorizeRequests()
-        .antMatchers("/webjars/**", "/resources/**").permitAll()
+        .antMatchers("/", "/webjars/**")
+        .permitAll()
         .anyRequest().authenticated()
         .and()
         .httpBasic();

@@ -1,9 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <title>Ошибка</title>
+    <title>Главная</title>
 
     <link rel="stylesheet" href="/assets/css/style.css">
     <link href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
@@ -11,16 +12,12 @@
 <body>
 
 <div class="jumbotron pt-4">
-    <h2>Ошибка</h2>
-
-    <br/>
-    <br/>
-    <h3>Страница не найдена. </h3>
+    <h2>Главная</h2>
 
     <br/>
     <br/>
 
-    <button onclick="window.history.back()" type="button">Назад</button>
+    <a href="/purchases" class="btn btn-primary">Трекер покупок</a>
 
 </div>
 

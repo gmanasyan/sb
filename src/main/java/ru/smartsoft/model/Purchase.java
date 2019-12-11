@@ -15,7 +15,7 @@ import javax.persistence.Table;
  */
 @NamedQueries({
 @NamedQuery(name = Purchase.ALL_SORTED,
-    query = "SELECT p FROM Purchase p ORDER BY p.id DESC")
+    query = "SELECT p FROM Purchase p ORDER BY p.date DESC")
     })
 @Entity
 @Table(name = "purchases")

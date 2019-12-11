@@ -83,6 +83,12 @@
       <artifactId>jstl</artifactId>
     </dependency>
 
+<!--    &lt;!&ndash; Web view Thymeleaf &ndash;&gt;-->
+<!--    <dependency>-->
+<!--      <groupId>org.springframework.boot</groupId>-->
+<!--      <artifactId>spring-boot-starter-thymeleaf</artifactId>-->
+<!--    </dependency>-->
+
     <!-- Web view -->
     <dependency>
       <groupId>org.webjars</groupId>
