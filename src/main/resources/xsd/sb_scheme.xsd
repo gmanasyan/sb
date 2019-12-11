@@ -32,7 +32,7 @@
 
   <xs:complexType name="UserInfo">
     <xs:annotation>
-      <xs:documentation>Информаци о пользователе</xs:documentation>
+      <xs:documentation>Информация о пользователе</xs:documentation>
     </xs:annotation>
     <xs:sequence>
       <xs:element name="id" type="xs:int"/>
@@ -48,12 +48,66 @@
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="name" type="xs:string"/>
-        <xs:element name="lastName" type="xs:string"/>
-        <xs:element name="age" type="xs:int"/>
+        <xs:element name="name">
+          <xs:annotation>
+            <xs:documentation>Имя покупателя</xs:documentation>
+          </xs:annotation>
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:minLength value="2"/>
+              <xs:maxLength value="50"/>
+              <xs:whiteSpace value="collapse"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:element>
+
+        <xs:element name="lastName">
+          <xs:annotation>
+            <xs:documentation>Фамилия покупателя</xs:documentation>
+          </xs:annotation>
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:minLength value="2"/>
+              <xs:maxLength value="50"/>
+              <xs:whiteSpace value="collapse"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:element>
+
+        <xs:element name="age">
+          <xs:annotation>
+            <xs:documentation>Клиенты от 6 до 140 лет</xs:documentation>
+          </xs:annotation>
+          <xs:simpleType>
+            <xs:restriction base="xs:integer">
+              <xs:minInclusive value="6"/>
+              <xs:maxInclusive value="140"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:element>
+
         <xs:element name="purchase_item" type="PurchaseItem"/>
-        <xs:element name="count" type="xs:int"/>
-        <xs:element name="amount" type="xs:int"/>
+        <xs:element name="count">
+          <xs:simpleType>
+            <xs:restriction base="xs:integer">
+              <xs:minInclusive value="1"/>
+              <xs:maxInclusive value="100"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:element>
+
+        <xs:element name="amount">
+          <xs:annotation>
+            <xs:documentation>Стоимость в копейках, от 1 до 10 миллионов рублей.</xs:documentation>
+          </xs:annotation>
+          <xs:simpleType>
+            <xs:restriction base="xs:integer">
+              <xs:minInclusive value="1"/>
+              <xs:maxInclusive value="1000000000"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:element>
+
         <xs:element name="purchaseDate" type="xs:dateTime"/>
       </xs:sequence>
     </xs:complexType>
@@ -101,6 +155,18 @@
       <xs:sequence>
         <xs:element name="user" type="UserInfo" />
         <xs:element name="description" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="ErrorInfoRs">
+    <xs:annotation>
+      <xs:documentation>Ответ с описанием ошибки</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="url" type="xs:string" />
+        <xs:element name="errorMessage" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

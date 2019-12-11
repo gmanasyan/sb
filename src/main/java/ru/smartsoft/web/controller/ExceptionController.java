@@ -1,13 +1,18 @@
 package ru.smartsoft.web.controller;
 
+import static ru.smartsoft.model.converter.sbAdapter.responsePurchase;
+
 import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import ru.smartsoft.model.converter.JaxbConverter;
+import ru.smartsoft.model.sbxsd.ErrorInfoRs;
 import ru.smartsoft.util.ApplicationException;
-import ru.smartsoft.util.ErrorInfo;
 import ru.smartsoft.util.JaxbException;
 import ru.smartsoft.util.NotFoundException;
 
@@ -18,16 +23,23 @@ public class ExceptionController {
 
   protected final Logger log = LoggerFactory.getLogger(getClass());
 
-  @ResponseStatus(HttpStatus.NOT_FOUND)  //404
+  protected final JaxbConverter jaxbConverter =
+      new JaxbConverter("SrvCreatePurchaseRq", "xsd/sb_scheme.xsd");
+
+  // https://stackoverflow.com/questions/26845631/is-it-correct-to-return-404-when-a-rest-resource-is-not-found/26845858
+  @ResponseStatus(HttpStatus.NO_CONTENT)  //204 - server side
   @ExceptionHandler(NotFoundException.class)
-  public ErrorInfo applicationError(HttpServletRequest req, ApplicationException e) throws Exception {
-    return new ErrorInfo(req.getRequestURI(), e.getMsg());
+  public ResponseEntity<String> notFound(HttpServletRequest req, ApplicationException e) throws Exception {
+    return ResponseEntity.noContent().build();
   }
 
-  @ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY)  // 422
+  @ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY)  // 422 - client side problem
   @ExceptionHandler(JaxbException.class)
-  public ErrorInfo wrongRequest(HttpServletRequest req, JaxbException e) throws Exception {
-    return new ErrorInfo(req.getRequestURI(), e.getMsg());
+  public ResponseEntity<String> wrongRequest(HttpServletRequest req, JaxbException e) throws Exception {
+    ErrorInfoRs errorInfoRs = new ErrorInfoRs();
+    errorInfoRs.setUrl(req.getRequestURI());
+    errorInfoRs.setErrorMessage(e.getMsg());
+    return ResponseEntity.unprocessableEntity().body(jaxbConverter.getXml(errorInfoRs));
   }
 
   //******** Methods *******

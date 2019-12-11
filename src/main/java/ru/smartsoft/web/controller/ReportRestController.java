@@ -20,16 +20,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import ru.smartsoft.model.Item;
 import ru.smartsoft.model.User;
-import ru.smartsoft.model.converter.JaxbConverter;
 import ru.smartsoft.model.sbxsd.SrvGetPurchaseItemRs;
 import ru.smartsoft.model.sbxsd.SrvGetPurchaseListRs;
 import ru.smartsoft.model.sbxsd.SrvGetUserRs;
 import ru.smartsoft.repository.ItemRepo;
 import ru.smartsoft.repository.PurchaseRepo;
 import ru.smartsoft.repository.UserRepo;
-import ru.smartsoft.util.ApplicationException;
-import ru.smartsoft.util.ErrorInfo;
-import ru.smartsoft.util.NotFoundException;
 
 /**
  * REST контроллер для отчетов.
@@ -39,9 +35,6 @@ import ru.smartsoft.util.NotFoundException;
 public class ReportRestController extends ExceptionController {
 
   protected final Logger log = LoggerFactory.getLogger(getClass());
-
-  private final JaxbConverter jaxbConverter =
-      new JaxbConverter("SrvCreatePurchaseRq", "xsd/sb_scheme.xsd");
 
   @Autowired
   PurchaseRepo purchaseRepo;
@@ -56,11 +49,10 @@ public class ReportRestController extends ExceptionController {
       @ApiResponse(responseCode = "200", description = "List of purchases",
           content = @Content(mediaType = "application/xml",
               schema = @Schema(implementation = SrvGetPurchaseListRs.class))),
+      @ApiResponse(responseCode = "204", content = @Content(schema = @Schema()),
+          description = "Purchases not found"),
       @ApiResponse(responseCode = "401", content = @Content(schema = @Schema()),
-          description = "You are not authorized to view the resource"),
-      @ApiResponse(responseCode = "404", description = "Purchase by this id not found",
-          content = @Content(mediaType = "application/json",
-              schema = @Schema(implementation = ErrorInfo.class)))
+          description = "You are not authorized to view the resource")
   })
   @RequestMapping(value = "/week", method = RequestMethod.GET,
       produces = { MediaType.APPLICATION_XML_VALUE })
@@ -76,11 +68,10 @@ public class ReportRestController extends ExceptionController {
       @ApiResponse(responseCode = "200", description = "List of purchases",
           content = @Content(mediaType = "application/xml",
               schema = @Schema(implementation = SrvGetPurchaseItemRs.class))),
+      @ApiResponse(responseCode = "204", content = @Content(schema = @Schema()),
+          description = "Purchases not found"),
       @ApiResponse(responseCode = "401", content = @Content(schema = @Schema()),
-          description = "You are not authorized to view the resource"),
-      @ApiResponse(responseCode = "404", description = "Purchase by this id not found",
-          content = @Content(mediaType = "application/json",
-              schema = @Schema(implementation = ErrorInfo.class)))
+          description = "You are not authorized to view the resource")
   })
   @RequestMapping(value = "/bestseller/month", method = RequestMethod.GET,
       produces = { MediaType.APPLICATION_XML_VALUE })
@@ -97,11 +88,10 @@ public class ReportRestController extends ExceptionController {
       @ApiResponse(responseCode = "200", description = "List of purchases",
           content = @Content(mediaType = "application/xml",
               schema = @Schema(implementation = SrvGetUserRs.class))),
+      @ApiResponse(responseCode = "204", content = @Content(schema = @Schema()),
+          description = "Purchases not found"),
       @ApiResponse(responseCode = "401", content = @Content(schema = @Schema()),
-          description = "You are not authorized to view the resource"),
-      @ApiResponse(responseCode = "404", description = "Purchase by this id not found",
-          content = @Content(mediaType = "application/json",
-              schema = @Schema(implementation = ErrorInfo.class)))
+          description = "You are not authorized to view the resource")
   })
   @RequestMapping(value = "/bestbuyer/halfyear", method = RequestMethod.GET,
       produces = { MediaType.APPLICATION_XML_VALUE })
@@ -118,11 +108,10 @@ public class ReportRestController extends ExceptionController {
       @ApiResponse(responseCode = "200", description = "List of purchases",
           content = @Content(mediaType = "application/xml",
               schema = @Schema(implementation = SrvGetPurchaseItemRs.class))),
+      @ApiResponse(responseCode = "204", content = @Content(schema = @Schema()),
+          description = "Purchases not found"),
       @ApiResponse(responseCode = "401", content = @Content(schema = @Schema()),
-          description = "You are not authorized to view the resource"),
-      @ApiResponse(responseCode = "404", description = "Purchase by this id not found",
-          content = @Content(mediaType = "application/json",
-              schema = @Schema(implementation = ErrorInfo.class)))
+          description = "You are not authorized to view the resource")
   })
   @RequestMapping(value = "/bestseller/{age}", method = RequestMethod.GET,
       produces = { MediaType.APPLICATION_XML_VALUE })

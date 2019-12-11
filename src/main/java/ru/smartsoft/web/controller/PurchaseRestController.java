@@ -8,7 +8,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.net.URI;
@@ -23,6 +22,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -31,15 +31,14 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.smartsoft.model.Item;
 import ru.smartsoft.model.Purchase;
 import ru.smartsoft.model.User;
-import ru.smartsoft.model.converter.JaxbConverter;
 import ru.smartsoft.model.converter.sbAdapter;
+import ru.smartsoft.model.sbxsd.ErrorInfoRs;
 import ru.smartsoft.model.sbxsd.SrvCreatePurchaseRq;
 import ru.smartsoft.model.sbxsd.SrvGetPurchaseListRs;
 import ru.smartsoft.model.sbxsd.SrvGetPurchaseRs;
 import ru.smartsoft.repository.ItemRepo;
 import ru.smartsoft.repository.PurchaseRepo;
 import ru.smartsoft.repository.UserRepo;
-import ru.smartsoft.util.ErrorInfo;
 
 /**
  * REST контроллер для работы с покупками.
@@ -62,9 +61,6 @@ public class PurchaseRestController extends ExceptionController {
   static final String REST_URL = "/api/purchases";
 
   protected final Logger log = LoggerFactory.getLogger(getClass());
-
-  private final JaxbConverter jaxbConverter =
-      new JaxbConverter("SrvCreatePurchaseRq", "xsd/sb_scheme.xsd");
 
   @Autowired
   PurchaseRepo purchaseRepo;
@@ -102,9 +98,8 @@ public class PurchaseRestController extends ExceptionController {
               schema = @Schema(implementation = SrvGetPurchaseRs.class))),
       @ApiResponse(responseCode = "401", content = @Content(schema = @Schema()),
           description = "You are not authorized to view the resource"),
-      @ApiResponse(responseCode = "404", description = "Purchase by this id not found",
-          content = @Content(mediaType = "application/json",
-              schema = @Schema(implementation = ErrorInfo.class)))
+      @ApiResponse(responseCode = "204", content = @Content(schema = @Schema()),
+          description = "Purchase by this id not found")
   })
   @RequestMapping(value = "/{id}", method = RequestMethod.GET,
       produces = { MediaType.APPLICATION_XML_VALUE })
@@ -124,9 +119,8 @@ public class PurchaseRestController extends ExceptionController {
       @ApiResponse(responseCode = "401", content = @Content(schema = @Schema()),
           description = "You are not authorized to view the resource"),
       @ApiResponse(responseCode = "422", description = "XML validation error",
-          content = @Content(
-              mediaType = "application/json",
-              schema = @Schema(implementation = ErrorInfo.class)
+          content = @Content(mediaType = "application/xml",
+              schema = @Schema(implementation = ErrorInfoRs.class)
           )
       )
   })
@@ -134,11 +128,12 @@ public class PurchaseRestController extends ExceptionController {
       headers = {"content-type=application/xml"})
   @ResponseStatus(value = HttpStatus.CREATED)
   public ResponseEntity<String> createItem(
-      @RequestBody(description = "Created purchase",
-          required = true,
-          content = @Content(mediaType = "application/xml",
+      @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Create purchase",
+          required = true, content = @Content(mediaType = "application/xml",
           schema = @Schema(implementation = SrvCreatePurchaseRq.class)))
-          String request) {
+      @RequestBody String request) {
+
+    log.info("Create: {}" + request);
     request = java.net.URLDecoder.decode(request, StandardCharsets.UTF_8);
     log.info("Create: {}" + request);
     Purchase purchase = sbAdapter.convert(jaxbConverter.getObject(request));
@@ -153,29 +148,32 @@ public class PurchaseRestController extends ExceptionController {
   /**
    * Апдейт покупки.
    */
-  @Operation(summary = "Update purchase", tags = {"Purchases"}, responses = {
-      @ApiResponse(responseCode = "201", description = "Created successfully",
-          content = @Content(mediaType = "application/text")),
-      @ApiResponse(responseCode = "401", content = @Content(schema = @Schema()),
-          description = "You are not authorized to view the resource"),
-      @ApiResponse(responseCode = "404", description = "Purchase by this id not found",
-          content = @Content(mediaType = "application/json",
-              schema = @Schema(implementation = ErrorInfo.class))),
-      @ApiResponse(responseCode = "422", description = "XML validation error",
-          content = @Content(
-              mediaType = "application/json",
-              schema = @Schema(implementation = ErrorInfo.class)
+  @Operation(summary = "Update purchase", tags = {"Purchases"},
+      responses = {
+          @ApiResponse(responseCode = "201", description = "Created successfully",
+              content = @Content(mediaType = "application/text")),
+
+          @ApiResponse(responseCode = "204", content = @Content(schema = @Schema()),
+              description = "Purchase by this id not found"),
+
+          @ApiResponse(responseCode = "401", content = @Content(schema = @Schema()),
+              description = "You are not authorized to view the resource"),
+
+          @ApiResponse(responseCode = "422", description = "XML validation error",
+              content = @Content(
+                  mediaType = "application/xml",
+                  schema = @Schema(implementation = ErrorInfoRs.class)
+              )
           )
-      )
-  })
+      })
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT,
       headers = {"content-type=application/xml"})
   public ResponseEntity<String> update(@PathVariable int id,
-      @RequestBody(description = "Update purchase",
-          required = true,
-          content = @Content(mediaType = "application/xml",
+      @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Update purchase",
+          required = true, content = @Content(mediaType = "application/xml",
               schema = @Schema(implementation = SrvCreatePurchaseRq.class)))
-      String request) {
+      @RequestBody String request) {
+
     request = java.net.URLDecoder.decode(request, StandardCharsets.UTF_8);
     log.info("Update: {}" + request);
     Purchase existedPurchase = purchaseRepo.findById(id).orElse(null);
@@ -191,20 +189,22 @@ public class PurchaseRestController extends ExceptionController {
    * Удаление покупки.
    */
   @Operation(summary = "Delete purchase", tags = {"Purchases"}, responses = {
+      //https://stackoverflow.com/questions/6439416/deleting-a-resource-using-http-delete
       @ApiResponse(responseCode = "204", content = @Content(schema = @Schema()),
-          description = "Delete completed"),
+          description = "Delete completed on existing or not existing record. Idempotent operation."),
       @ApiResponse(responseCode = "401", content = @Content(schema = @Schema()),
-          description = "You are not authorized to view the resource"),
-      @ApiResponse(responseCode = "404", description = "Purchase by this id not found",
-          content = @Content(mediaType = "application/json",
-              schema = @Schema(implementation = ErrorInfo.class)))
+          description = "You are not authorized to view the resource")
   })
   @DeleteMapping("/{id}")
   public ResponseEntity<String> delete(@PathVariable int id) {
     log.info("Delete purchase with id {}", id);
     Purchase existedPurchase = purchaseRepo.findById(id).orElse(null);
-    checkIfNull(existedPurchase, "Нет покупки с номером " + id);
-    purchaseRepo.deleteById(id);
+
+    // https://stackoverflow.com/questions/38785622/how-to-i-tell-a-springdata-repositorys-delete-method-to-not-throw-an-exception
+    if (purchaseRepo.existsById(id)) {
+      purchaseRepo.deleteById(id);
+    }
+
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
 
@@ -231,7 +231,6 @@ public class PurchaseRestController extends ExceptionController {
     }
     return purchaseRepo.save(purchase);
   }
-
 
 
 }
